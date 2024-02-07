@@ -3,8 +3,7 @@ import { Image } from "astro:assets";
 
 import image1 from "@images/1/cat_1.jpg";
 
-import Gallery from "@components/Gallery.astro"
-
+import Gallery from "@components/Gallery.astro";
 ---
 
 <html lang="en">
@@ -16,13 +15,24 @@ import Gallery from "@components/Gallery.astro"
     <title>Astro</title>
   </head>
   <body>
-    <h1>Astro</h1>src/pages/gallery
+    <h1>Astro</h1><p>src/pages/gallery</p>
+    <a href="https://www.youtube.com/watch?v=Fcw4c3wzm7I" target="_blank"
+      >Coding in Public Content Collections</a
+    > This explores the use of JSON in content collections, which might be better
+    for galleries.
     <h2>Gallery Component</h2>
     <a href="/gallery/1/">Page: Gallery 1</a>
-    <Gallery galleryId="1"/>
-<hr>
+    <Gallery galleryId="2" />
+    <Gallery galleryId="1" />
+
+    <hr />
 
     <Image src={image1} alt="XXX" />
   </body>
 </html>
-<style>img {width: 450px;height: auto;}</style>
+<style>
+  img {
+    width: 450px;
+    height: auto;
+  }
+</style>
