@@ -1,9 +1,13 @@
 ---
-import { Image } from "astro:assets";
+import { Image, imageConfig } from "astro:assets";
 
 import image1 from "@images/1/cat_1.jpg";
 
-import Gallery from "@components/Gallery.astro";
+import ImageGallery from "@components/Gallery.astro";
+import Slider from "@components/Slider.astro";
+import Test from "@components/Test.astro";
+
+// import "../styles/style.css";
 ---
 
 <html lang="en">
@@ -12,27 +16,25 @@ import Gallery from "@components/Gallery.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <meta name="description" content="A simple Gallery sample for Astro" />
+    <title>Astro Gallery Compontent</title>
   </head>
   <body>
-    <h1>Astro</h1><p>src/pages/gallery</p>
+    <h1>Astro Gallery From Markdown Files</h1>
+    <h2>With Open Props</h2>
     <a href="https://www.youtube.com/watch?v=Fcw4c3wzm7I" target="_blank"
       >Coding in Public Content Collections</a
     > This explores the use of JSON in content collections, which might be better
-    for galleries.
-    <h2>Gallery Component</h2>
-    <a href="/gallery/1/">Page: Gallery 1</a>
-    <Gallery galleryId="2" />
-    <Gallery galleryId="1" />
-
-    <hr />
-
-    <Image src={image1} alt="XXX" />
-  </body>
+    for galleries.</body
+  >
+  <Test testid="1" />
+  <Slider galleryid="3" />
+  <h2>Gallery Component</h2>
+  <!-- <a href="/gallery/1/">Page: Gallery 1</a> -->
+  <section>
+    <h3>Gallery 1</h3>
+    <ImageGallery galleryid="2" />
+    <h3>Gallery 2</h3>
+    <ImageGallery galleryid="1" />
+  </section>
 </html>
-<style>
-  img {
-    width: 450px;
-    height: auto;
-  }
-</style>

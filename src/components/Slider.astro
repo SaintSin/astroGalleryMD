@@ -1,0 +1,61 @@
+---
+// Basic Carousel
+// https://splidejs.com/tutorials/image-carousel/
+import { type CollectionEntry, getEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  galleryid: string;
+  gallery?: CollectionEntry<"galleries">; // gallery is now optional
+}
+
+const { galleryid } = Astro.props;
+
+const gallery = await getEntry("galleries", galleryid);
+const images = gallery ? gallery.data.images : [];
+
+import "@splidejs/splide/css";
+---
+
+<h1>slider</h1>
+<section id="image-carousel" class="splide" aria-label="Beautiful Images">
+  <div class="splide__track">
+    <ul class="splide__list">
+      {
+        images.map((photo) => (
+          <li class="splide__slide">
+            <Image
+              src={photo.src}
+              alt={JSON.stringify(photo.alt)}
+              widths={[600, 1200, 2000]}
+              quality={40}
+            />
+            {photo.title ? <p>{photo.title}</p> : null}
+            {photo.description ? <p>{photo.description}</p> : null}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+<style>
+  .splide__slide img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+<script>
+  import Splide from "@splidejs/splide";
+  document.addEventListener("DOMContentLoaded", function () {
+    new Splide("#image-carousel", {
+      perPage: 1,
+      type: "fade",
+
+      autoplay: true,
+      speed: 500,
+    
+    }).mount();
+    console.log("SSSS", Splide);
+
+  });
+</script>

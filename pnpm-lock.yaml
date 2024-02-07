@@ -11,6 +11,9 @@ dependencies:
   "@astrojs/mdx":
     specifier: ^2.1.1
     version: 2.1.1(astro@4.3.3)
+  "@splidejs/splide":
+    specifier: ^4.1.4
+    version: 4.1.4
   astro:
     specifier: ^4.3.3
     version: 4.3.3(sass@1.70.0)(typescript@5.3.3)
@@ -1397,6 +1400,13 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@splidejs/splide@4.1.4:
+    resolution:
+      {
+        integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==,
+      }
+    dev: false
 
   /@types/acorn@4.0.6:
     resolution:

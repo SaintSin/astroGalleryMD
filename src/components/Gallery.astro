@@ -1,51 +1,43 @@
 ---
-import { type CollectionEntry, getCollection, getEntry } from "astro:content";
+// Vanilla Gallery
+import { type CollectionEntry, getEntry } from "astro:content";
 import { Image } from "astro:assets";
-import { getEntries } from "astro:content";
 
 interface Props {
-  entry: CollectionEntry<"galleries">;
+  galleryid: string;
+  gallery?: CollectionEntry<"galleries">; // gallery is now optional
 }
 
-const { galleryId } = Astro.props;
+const { galleryid } = Astro.props;
 
-const agallery = await getEntry("galleries", galleryId);
-console.log(agallery);
+const gallery = await getEntry("galleries", galleryid);
+const images = gallery ? gallery.data.images : [];
 ---
 
-<section class="gallery">
-  <p>Component Gallery ID: {galleryId}</p>
-  <p class="small">{JSON.stringify(agallery.data.images)}</p>
-</section>
-<section>
+<section class="grid">
   {
-    agallery.data.images.map((photo) => (
-      <>
-        <div>
-          <Image
-            src={photo.src}
-            alt={JSON.stringify(photo.alt)}
-            widths={[600, 120, 2000]}
-          />
-          {photo.title ? <p>{photo.title}</p> : null}
-          {photo.description ? <p>{photo.description}</p> : null}
-        </div>
-      </>
+    images.map((photo) => (
+      <figure class="imagediv">
+        <Image
+          src={photo.src}
+          alt={JSON.stringify(photo.alt)}
+          widths={[400, 600, 1200]}
+          quality={40}
+        />
+        {photo.title ? <p>{photo.title}</p> : null}
+        {photo.description ? <p>{photo.description}</p> : null}
+      </figure>
     ))
   }
 </section>
 <style>
-  .gallery {
-    background: oklch(68.24% 0.187 236.12 / 89.82%);
-    padding: 0.001rem 0.41rem;
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  .small {
-    font-size: 0.8rem;
-  }
   img {
     width: 400px;
     height: auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 </style>
