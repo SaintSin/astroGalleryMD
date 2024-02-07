@@ -7,11 +7,20 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "prettier": "prettier --write . --plugin=prettier-plugin-astro"
   },
   "dependencies": {
-    "astro": "^4.2.6",
     "@astrojs/check": "^0.4.1",
+    "@astrojs/mdx": "^2.1.1",
+    "astro": "^4.3.3",
+    "open-props": "^1.6.18",
+    "sass": "^1.70.0",
+    "sharp": "^0.33.2",
     "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.13.0"
   }
 }

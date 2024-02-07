@@ -3,7 +3,8 @@ import { Image } from "astro:assets";
 
 import image1 from "@images/1/cat_1.jpg";
 
-import Gallery from "@components/Gallery.astro";
+import Gallery from "@components/Gallery.astro"
+
 ---
 
 <html lang="en">
@@ -17,16 +18,11 @@ import Gallery from "@components/Gallery.astro";
   <body>
     <h1>Astro</h1>src/pages/gallery
     <h2>Gallery Component</h2>
-    <a href="/gallery/1/">Gallery 1</a>
-    <Gallery galleryId="1" />
-    <hr />
+    <a href="/gallery/1/">Page: Gallery 1</a>
+    <Gallery galleryId="1"/>
+<hr>
 
     <Image src={image1} alt="XXX" />
   </body>
 </html>
-<style>
-  img {
-    width: 450px;
-    height: auto;
-  }
-</style>
+<style>img {width: 450px;height: auto;}</style>

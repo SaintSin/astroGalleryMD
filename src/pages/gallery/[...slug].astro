@@ -1,0 +1,66 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  entry: CollectionEntry<"galleries">;
+}
+
+export async function getStaticPaths() {
+  const gallery = await getCollection("galleries");
+  console.log("Galleries", gallery);
+  return gallery.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+  console.log("props", entry);
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const photos = entry.data.images;
+
+console.log("Entry", entry);
+---
+
+<section class="head">
+  <p><a href="/">Home</a></p>
+</section>
+<section class="gallery">
+  <h1>G2 Schema Test: {entry.data.title}</h1>
+
+  <!-- <p>Entry: <br />{JSON.stringify(entry)}</p> -->
+  <!-- <p>{JSON.stringify(entry.data)}</p> -->
+  <!-- <p>Photos: {JSON.stringify(photos)}</p> -->
+
+  {
+    photos.map((photo) => (
+      <div>
+        <Image
+          src={photo.src}
+          alt={JSON.stringify(photo.alt)}
+          widths={[600, 120, 2000]}
+        />
+        {photo.title ? <p>photo.title</p> : null}
+        {photo.description ? <p>photo.description</p> : null}
+      </div>
+    ))
+  }
+</section>
+<style>
+  img {
+    width: 600px;
+    height: auto;
+  }
+  .head {
+    background-color: rgb(82, 82, 82);
+    padding: 1em;
+    color: white;
+  }
+  .head a {
+    color: white;
+  }
+  .gallery {
+    background: oklch(66.76% 0.294 3 / 50%);
+  }
+</style>
