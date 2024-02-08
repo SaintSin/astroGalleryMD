@@ -4,6 +4,8 @@ import { Image, imageConfig } from "astro:assets";
 import image1 from "@images/1/cat_1.jpg";
 
 import ImageGallery from "@components/Gallery.astro";
+import Lightbox from "@components/Lightbox.astro";
+
 import Slider from "@components/Slider.astro";
 import Swiper from "@components/Swiper.astro";
 
@@ -31,6 +33,8 @@ import Test from "@components/Test.astro";
   >
   <Test testid="1" />
   <a href="/swiper/">Swiper</a>
+  <Lightbox galleryid="3" />
+
   <h2>Gallery Component</h2>
   <!-- <a href="/gallery/1/">Page: Gallery 1</a> -->
   <section>

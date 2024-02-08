@@ -1,0 +1,225 @@
+---
+// Vanilla Gallery
+import { type CollectionEntry, getEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  galleryid: string;
+  gallery?: CollectionEntry<"galleries">; // gallery is now optional
+}
+
+const { galleryid } = Astro.props;
+
+const gallery = await getEntry("galleries", galleryid);
+const images = gallery ? gallery.data.images : [];
+---
+
+<h1>Lightbox</h1>
+<section class="grid">
+  <ul id="thumbnails" class="thumbnails">
+    {
+      images.map((photo) => (
+        <li class="thumbnail">
+          <button data-open-modal>
+            <Image
+              src={photo.src}
+              alt={JSON.stringify(photo.alt)}
+              widths={[400, 600, 1200]}
+              quality={40}
+            />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+<!-- Modal Dialogue With Larger Images-->
+<dialog data-modal>
+  <!-- Splide main carousel -->
+  <section id="image-carousel" class="splide" aria-label="Beautiful Images">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {
+          images.map((photo, index) => (
+            <li class="splide__slide">
+              <Image
+                src={photo.src}
+                alt={JSON.stringify(photo.alt)}
+                widths={[400, 600, 1200]}
+                quality={40}
+              />
+              <div class="container__text">
+                <p class="txt-center">
+                  <b>
+                    {index + 1} - {photo.title}
+                  </b>
+                    <br />
+                    <em>{photo.description}</em>
+                  </>
+                </p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+  <button data-close-modal>Close</button>
+</dialog>
+
+<!-- Modal Control -->
+
+<style>
+  img {
+    width: 400px;
+    height: auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+</style>
+
+<!-- Modal Control -->
+
+<script>
+  document.querySelectorAll("[data-open-modal]").forEach((button) =>
+    button.addEventListener("click", () => {
+      modal.showModal();
+    })
+  );
+
+  const openButton = document.querySelectorAll("[data-open-modal]");
+  const closeButton = document.querySelector("[data-close-modal]");
+  const modal = document.querySelector("[data-modal]");
+
+  closeButton.addEventListener("click", () => {
+    modal.close();
+  });
+</script>
+
+<script>
+  // Default theme
+  import Splide from "@splidejs/splide";
+  const slideSpeed = 401;
+  const splide = new Splide("#image-carousel", {
+    type: "fade",
+    rewind: true,
+    speed: slideSpeed,
+  });
+
+  // Collects LI elements:
+  var thumbnails = document.getElementsByClassName("thumbnail");
+  var current;
+
+  for (var i = 0; i < thumbnails.length; i++) {
+    initThumbnail(thumbnails[i], i);
+  }
+
+  // The function to initialize each thumbnail.
+  function initThumbnail(thumbnail, index) {
+    thumbnail.addEventListener("click", function () {
+      splide.go(index);
+    });
+  }
+  splide.on("mounted move", function () {
+    var thumbnail = thumbnails[splide.index];
+
+    if (thumbnail) {
+      if (current) {
+        current.classList.remove("is-active");
+      }
+
+      thumbnail.classList.add("is-active");
+      current = thumbnail;
+    }
+  });
+  splide.mount();
+</script>
+<style lang="scss">
+  // * {
+  //   outline: 1px solid red;
+  // }
+  .splide {
+    margin: 0 auto;
+  }
+
+  .thumbnails {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    gap: 1rem;
+  }
+
+  .thumbnail {
+    list-style: none;
+    max-width: 280px;
+    min-width: 150px;
+
+    p {
+      font-size: var(--step--2);
+      padding: 0;
+      margin: 0;
+    }
+
+    button {
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: none;
+      &:hover {
+        cursor: pointer;
+      }
+
+      img {
+        border: 1px solid hsla(0, 0%, 0%, 0.688);
+      }
+    }
+  }
+  @media (width < 640px) {
+    .thumbnail {
+      list-style: none;
+      max-width: 40%;
+      min-width: 40%;
+    }
+  }
+  .thumbnail img {
+    width: 100%;
+    height: auto;
+  }
+  .splide {
+  }
+  .splide__slide {
+    max-width: 100%;
+
+    img {
+      max-width: 100%;
+    }
+    .container__text {
+      width: 50%;
+      margin: 0 auto;
+    }
+  }
+</style>
+<style lang="scss">
+  // Dialog modal
+  dialog {
+    width: 90vw;
+    height: 90vh;
+    border: 0px;
+
+    button {
+      display: block;
+      background-color: rgba(13, 52, 52, 0.59);
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+  }
+  dialog::backdrop {
+    background: hsl(50, 75%, 97%);
+  }
+</style>

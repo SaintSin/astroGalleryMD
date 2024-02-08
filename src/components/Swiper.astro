@@ -44,4 +44,14 @@ const images = gallery ? gallery.data.images : [];
     height: 300px;
   }
 </style>
-
+<script>
+  // core version + navigation, pagination modules:
+  import Swiper from "swiper";
+  import "swiper/css";
+  const swiper = new Swiper(".swiper", {
+    autoplay: {
+      delay: 500,
+    },
+  });
+  console.log("Swipes");
+</script>
