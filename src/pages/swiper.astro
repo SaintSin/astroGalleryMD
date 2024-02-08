@@ -1,0 +1,23 @@
+---
+import { Image, imageConfig } from "astro:assets";
+
+import Swip from "@components/Swiper.astro";
+
+// import "../styles/style.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="A simple Gallery sample for Astro" />
+    <title>Astro Gallery Compontent</title>
+  </head>
+  <body>
+    <h1>Astro Gallery From Markdown Files</h1>
+
+    <Swip galleryid="3" />
+  </body>
+</html>

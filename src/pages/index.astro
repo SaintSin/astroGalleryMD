@@ -5,6 +5,8 @@ import image1 from "@images/1/cat_1.jpg";
 
 import ImageGallery from "@components/Gallery.astro";
 import Slider from "@components/Slider.astro";
+import Swiper from "@components/Swiper.astro";
+
 import Test from "@components/Test.astro";
 
 // import "../styles/style.css";
@@ -28,6 +30,7 @@ import Test from "@components/Test.astro";
     for galleries.</body
   >
   <Test testid="1" />
+  <a href="/swiper/">Swiper</a>
   <h2>Gallery Component</h2>
   <!-- <a href="/gallery/1/">Page: Gallery 1</a> -->
   <section>
@@ -37,5 +40,5 @@ import Test from "@components/Test.astro";
     <ImageGallery galleryid="1" />
   </section>
   <Slider galleryid="3" />
-
+  <Swiper galleryid="3" />
 </html>
