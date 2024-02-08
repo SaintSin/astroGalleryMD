@@ -14,7 +14,7 @@
     "@astrojs/check": "^0.4.1",
     "@astrojs/mdx": "^2.1.1",
     "@splidejs/splide": "^4.1.4",
-    "astro": "^4.3.3",
+    "astro": "^4.3.5",
     "open-props": "^1.6.18",
     "sass": "^1.70.0",
     "sharp": "^0.33.2",

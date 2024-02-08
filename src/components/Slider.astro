@@ -18,6 +18,7 @@ import "@splidejs/splide/css";
 ---
 
 <h1>slider</h1>
+<p>Check paraeters</p>
 <section id="image-carousel" class="splide" aria-label="Beautiful Images">
   <div class="splide__track">
     <ul class="splide__list">
@@ -50,10 +51,9 @@ import "@splidejs/splide/css";
     new Splide("#image-carousel", {
       perPage: 1,
       type: "fade",
-
+      
       autoplay: true,
       speed: 500,
-    
     }).mount();
     console.log("SSSS", Splide);
 
