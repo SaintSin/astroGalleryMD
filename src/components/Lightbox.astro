@@ -53,9 +53,8 @@ const images = gallery ? gallery.data.images : [];
                   <b>
                     {index + 1} - {photo.title}
                   </b>
-                    <br />
-                    <em>{photo.description}</em>
-                  </>
+                  <br />
+                  <em>{photo.description}</em>
                 </p>
               </div>
             </li>
@@ -64,8 +63,8 @@ const images = gallery ? gallery.data.images : [];
       </ul>
     </div>
   </section>
-  <button data-close-modal>Close</button>
 </dialog>
+<button data-close-modal>Close</button>
 
 <!-- Modal Control -->
 
@@ -84,59 +83,98 @@ const images = gallery ? gallery.data.images : [];
 <!-- Modal Control -->
 
 <script>
-  document.querySelectorAll("[data-open-modal]").forEach((button) =>
+  // Define types for elements and events
+  interface ModalElement extends HTMLElement {
+    showModal: () => void;
+    close: () => void;
+  }
+
+  // Query selectors
+  const openButtons =
+    document.querySelectorAll<HTMLElement>("[data-open-modal]");
+  const closeButton = document.querySelector<HTMLElement>("[data-close-modal]");
+  const modal = document.querySelector<ModalElement>("[data-modal]");
+
+  // Add event listeners
+  openButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      modal.showModal();
-    })
-  );
-
-  const openButton = document.querySelectorAll("[data-open-modal]");
-  const closeButton = document.querySelector("[data-close-modal]");
-  const modal = document.querySelector("[data-modal]");
-
-  closeButton.addEventListener("click", () => {
-    modal.close();
+      if (modal) {
+        modal.showModal();
+      }
+    });
   });
+
+  if (closeButton && modal) {
+    closeButton.addEventListener("click", () => {
+      modal.close();
+    });
+  }
 </script>
 
 <script>
-  // Default theme
-  import Splide from "@splidejs/splide";
-  const slideSpeed = 401;
-  const splide = new Splide("#image-carousel", {
-    type: "fade",
-    rewind: true,
-    speed: slideSpeed,
-  });
+import Splide from "@splidejs/splide";
 
-  // Collects LI elements:
-  var thumbnails = document.getElementsByClassName("thumbnail");
-  var current;
+// Define types for elements and Splide options
+interface ThumbnailElement extends Element {
+  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+}
 
-  for (var i = 0; i < thumbnails.length; i++) {
-    initThumbnail(thumbnails[i], i);
-  }
+interface SplideOptions {
+  type: string;
+  rewind: boolean;
+  speed: number;
+}
 
-  // The function to initialize each thumbnail.
-  function initThumbnail(thumbnail, index) {
-    thumbnail.addEventListener("click", function () {
+// Initialize Splide
+const slideSpeed: number = 401;
+const splideOptions: SplideOptions = {
+  type: "fade",
+  rewind: true,
+  speed: slideSpeed,
+};
+const splide = new Splide("#image-carousel", splideOptions);
+
+// Collect LI elements
+const thumbnails = document.getElementsByClassName("thumbnail");
+
+// Initialize each thumbnail
+for (let i = 0; i < thumbnails.length; i++) {
+  const thumbnail = thumbnails[i] as ThumbnailElement;
+  initThumbnail(thumbnail, i);
+}
+
+// Declare current
+let current: ThumbnailElement | null = null;
+
+// Function to initialize each thumbnail
+function initThumbnail(thumbnail: ThumbnailElement, index: number) {
+  thumbnail.addEventListener("click", () => {
+    if (splide) {
       splide.go(index);
-    });
-  }
-  splide.on("mounted move", function () {
-    var thumbnail = thumbnails[splide.index];
-
-    if (thumbnail) {
-      if (current) {
-        current.classList.remove("is-active");
-      }
-
-      thumbnail.classList.add("is-active");
-      current = thumbnail;
     }
   });
-  splide.mount();
+}
+
+// Event listener for Splide events
+splide.on("mounted move", () => {
+  const thumbnail = thumbnails[splide.index] as ThumbnailElement;
+
+  if (thumbnail) {
+    if (current) {
+      current.classList.remove("is-active");
+    }
+
+    thumbnail.classList.add("is-active");
+    current = thumbnail;
+  }
+});
+
+// Mount Splide
+splide.mount();
+
 </script>
+
+
 <style lang="scss">
   // * {
   //   outline: 1px solid red;
