@@ -15,7 +15,7 @@ const gallery = await getEntry("galleries", galleryid);
 const images = gallery ? gallery.data.images : [];
 ---
 
-<h1>Swiper</h1>
+<h1>Swiper Component</h1>
 <!-- Slider main container -->
 <div class="swiper">
   <!-- Additional required wrapper -->
@@ -29,6 +29,8 @@ const images = gallery ? gallery.data.images : [];
             alt={JSON.stringify(photo.alt)}
             widths={[600, 1200, 2000]}
             quality={40}
+            loading={"lazy"}
+
           />
           {photo.title ? <p>{photo.title}</p> : null}
           {photo.description ? <p>{photo.description}</p> : null}

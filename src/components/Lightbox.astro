@@ -14,8 +14,8 @@ const gallery = await getEntry("galleries", galleryid);
 const images = gallery ? gallery.data.images : [];
 ---
 
-<h1>Lightbox</h1>
-<section class="grid">
+<h1>Lightbox Component</h1>
+<section class="">
   <ul id="thumbnails" class="thumbnails">
     {
       images.map((photo) => (
@@ -26,6 +26,7 @@ const images = gallery ? gallery.data.images : [];
               alt={JSON.stringify(photo.alt)}
               widths={[400, 600, 1200]}
               quality={40}
+              loading={"eager"}
             />
           </button>
         </li>
@@ -47,6 +48,7 @@ const images = gallery ? gallery.data.images : [];
                 alt={JSON.stringify(photo.alt)}
                 widths={[400, 600, 1200]}
                 quality={40}
+                loading={"eager"}
               />
               <div class="container__text">
                 <p class="txt-center">
@@ -62,15 +64,15 @@ const images = gallery ? gallery.data.images : [];
         }
       </ul>
     </div>
-  </section><button data-close-modal>Close</button>
-
+  </section>
+  <button data-close-modal>Close</button>
 </dialog>
 
 <!-- Modal Control -->
 
 <style>
   img {
-    width: 400px;
+    width: 2000px;
     height: auto;
   }
 
@@ -194,7 +196,7 @@ splide.mount();
 
   .thumbnail {
     list-style: none;
-    max-width: 280px;
+    max-width: 400px;
     min-width: 150px;
 
     p {

@@ -13,6 +13,7 @@ const { galleryid } = Astro.props;
 const gallery = await getEntry("galleries", galleryid);
 const images = gallery ? gallery.data.images : [];
 ---
+<h1>Gallery Component</h1>
 
 <section class="grid">
   {
@@ -23,6 +24,7 @@ const images = gallery ? gallery.data.images : [];
           alt={JSON.stringify(photo.alt)}
           widths={[400, 600, 1200]}
           quality={40}
+          loading={"lazy"}
         />
         {photo.title ? <p>{photo.title}</p> : null}
         {photo.description ? <p>{photo.description}</p> : null}
