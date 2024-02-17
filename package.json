@@ -11,7 +11,7 @@
     "prettier": "prettier --write . --plugin=prettier-plugin-astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
+    "@astrojs/check": "^0.5.4",
     "@astrojs/mdx": "^2.1.1",
     "@splidejs/splide": "^4.1.4",
     "astro": "^4.4.0",
